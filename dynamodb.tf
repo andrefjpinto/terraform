@@ -1,4 +1,4 @@
-resource "aws_dynamodb_table" "integration_erp_mes_dynamodb_table" {
+resource "aws_dynamodb_table" "this" {
   name           = "${var.name}-${var.env}-processed-records"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20

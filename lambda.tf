@@ -4,10 +4,10 @@ data "archive_file" "lambda" {
   output_path = "lambda.zip"
 }
 
-resource "aws_lambda_function" "integration_erp_mes_lambda" {
+resource "aws_lambda_function" "this" {
   filename      = "lambda.zip"
   function_name = "${var.name}-${var.env}-lambda"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role          = aws_iam_role.this.arn
   handler       = "index.handler"
 
   source_code_hash = data.archive_file.lambda.output_base64sha256
@@ -17,13 +17,13 @@ resource "aws_lambda_function" "integration_erp_mes_lambda" {
   environment {
     variables = {
       ENV            = var.env
-      SNS_TOPIC      = aws_sns_topic.integration_erp_mes_sns_topic.arn
-      DYNAMODB_TABLE = aws_dynamodb_table.integration_erp_mes_dynamodb_table.name
+      SNS_TOPIC      = aws_sns_topic.this.arn
+      DYNAMODB_TABLE = aws_dynamodb_table.this.name
     }
   }
 
   tags = {
-    Name        = "${var.name}-${var.env}-integration_erp_mes_lambda"
-    Environment = var.env
+    name        = "${var.name}-${var.env}-this"
+    environment = var.env
   }
 }

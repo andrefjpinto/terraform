@@ -1,5 +1,5 @@
-resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda"
+resource "aws_iam_role" "this" {
+  name = "${var.name}-${var.env}-lambda-iam"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -20,8 +20,8 @@ resource "aws_iam_role" "iam_for_lambda" {
   })
 }
 
-resource "aws_iam_policy" "lambda_policy" {
-  name = "iem-dev-lambda-policy"
+resource "aws_iam_policy" "this" {
+  name = "${var.name}-${var.env}-lambda-policy"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
@@ -39,7 +39,7 @@ resource "aws_iam_policy" "lambda_policy" {
           "sns:Publish",
         ]
         Resource = [
-          aws_sns_topic.integration_erp_mes_sns_topic.arn
+          aws_sns_topic.this.arn
         ]
       },
       {
@@ -48,7 +48,7 @@ resource "aws_iam_policy" "lambda_policy" {
           "dynamodb:PutItem",
         ]
         Resource = [
-          aws_dynamodb_table.integration_erp_mes_dynamodb_table.arn
+          aws_dynamodb_table.this.arn
         ]
       }
     ]
@@ -56,7 +56,7 @@ resource "aws_iam_policy" "lambda_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "example" {
-  policy_arn = aws_iam_policy.lambda_policy.arn
-  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = aws_iam_policy.this.arn
+  role       = aws_iam_role.this.name
 }
 

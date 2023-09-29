@@ -1,7 +1,15 @@
 output "lambda_arn" {
-  value = aws_lambda_function.integration_erp_mes_lambda.arn
+  value = aws_lambda_function.this.arn
 }
 
 output "sns_arn" {
-  value = aws_sns_topic.integration_erp_mes_sns_topic.arn
+  value = aws_sns_topic.this.arn
+}
+
+output "lambda_policy_arn" {
+  value = aws_iam_policy.this.arn
+}
+
+output "lambda_role_arn" {
+  value = aws_iam_role.this.arn
 }
