@@ -37,7 +37,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_env"></a> [env](#input\_env) | n/a | `string` | `"dev"` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"iem"` | no |
-| <a name="input_repo"></a> [repo](#input\_repo) | The url of the repository in bitbucket | `string` | `"https://bitbucket.org/cellforce/integration-erp-mes-infra/src"` | no |
+| <a name="input_repo"></a> [repo](#input\_repo) | n/a | `any` | n/a | yes |
 
 ## Outputs
 
