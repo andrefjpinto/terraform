@@ -23,7 +23,6 @@ resource "aws_lambda_function" "this" {
   }
 
   tags = {
-    name        = "${var.name}-${var.env}-this"
-    environment = var.env
+    name = "${var.name}-${var.env}-this"
   }
 }
