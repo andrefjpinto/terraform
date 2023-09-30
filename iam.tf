@@ -1,4 +1,5 @@
-resource "aws_iam_role" "this" {
+# Lambda
+resource "aws_iam_role" "lambda" {
   name = "${var.name}-${var.env}-lambda-iam"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -20,7 +21,7 @@ resource "aws_iam_role" "this" {
   })
 }
 
-resource "aws_iam_policy" "this" {
+resource "aws_iam_policy" "lambda" {
   name = "${var.name}-${var.env}-lambda-policy"
   policy = jsonencode({
     Version = "2012-10-17"
@@ -55,8 +56,37 @@ resource "aws_iam_policy" "this" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "example" {
-  policy_arn = aws_iam_policy.this.arn
-  role       = aws_iam_role.this.name
+resource "aws_iam_role_policy_attachment" "lambda" {
+  policy_arn = aws_iam_policy.lambda.arn
+  role       = aws_iam_role.lambda.name
 }
 
+# SQS
+
+resource "aws_sqs_queue_policy" "sns_to_sqs_dlq" {
+  queue_url = aws_sqs_queue.this.id
+  policy    = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "sns.amazonaws.com"
+      },
+      "Action": [
+        "sqs:SendMessage"
+      ],
+      "Resource": [
+        "${aws_sqs_queue.this.arn}"
+      ],
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "${aws_sns_topic.this.arn}"
+        }
+      }
+    }
+  ]
+}
+EOF
+}
