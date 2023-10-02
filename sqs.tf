@@ -1,16 +1,42 @@
 resource "aws_sqs_queue" "this" {
-  name                      = "${var.name}-${var.env}-dlq"
-  receive_wait_time_seconds = 20
-  message_retention_seconds = 18400
-
+  name                      = "${var.name}-${var.env}-queue"
+  delay_seconds             = 90
+  max_message_size          = 2048
+  message_retention_seconds = 86400
+  receive_wait_time_seconds = 10
+  #   redrive_policy = jsonencode({
+  #     deadLetterTargetArn = aws_sqs_queue.terraform_queue_deadletter.arn
+  #     maxReceiveCount     = 4
+  #   })
   tags = {
-    name = "${var.name}-${var.env}-dlq"
+    name = "${var.name}-${var.env}-queue"
   }
 }
 
-resource "aws_sns_topic_subscription" "this" {
-  protocol             = "sqs"
-  raw_message_delivery = true
-  topic_arn            = aws_sns_topic.this.arn
-  endpoint             = aws_sqs_queue.this.arn
+data "aws_iam_policy_document" "this" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "sqs:SendMessage",
+    ]
+    principals {
+      type        = "Service"
+      identifiers = ["sns.amazonaws.com"]
+    }
+    resources = [
+      aws_sqs_queue.this.arn,
+    ]
+    condition {
+      test     = "ArnEquals"
+      variable = "aws:SourceArn"
+      values = [
+        aws_sns_topic.this.arn
+      ]
+    }
+  }
+}
+
+resource "aws_sqs_queue_policy" "this" {
+  queue_url = aws_sqs_queue.this.id
+  policy    = data.aws_iam_policy_document.this.json
 }

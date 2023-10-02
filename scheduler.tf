@@ -4,16 +4,15 @@ resource "aws_cloudwatch_event_rule" "this" {
   schedule_expression = "rate(1 minute)"
 }
 
-resource "aws_cloudwatch_event_target" "event_target" {
+resource "aws_cloudwatch_event_target" "this" {
   rule      = aws_cloudwatch_event_rule.this.name
-  target_id = "event_target"
+  target_id = "processing_lambda"
   arn       = aws_lambda_function.this.arn
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_rw_fallout_retry_step_deletion_lambda" {
+resource "aws_lambda_permission" "this" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.this.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.this.arn
 }

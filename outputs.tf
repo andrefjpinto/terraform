@@ -2,12 +2,16 @@ output "lambda_arn" {
   value = aws_lambda_function.this.arn
 }
 
-output "sns_arn" {
-  value = aws_sns_topic.this.arn
-}
+# output "sns_arn" {
+#   value = aws_sns_topic.this.arn
+# }
 
-output "sqs_arn" {
-  value = aws_sqs_queue.this.arn
+# output "sqs_arn" {
+#   value = aws_sqs_queue.this.arn
+# }
+
+output "dynamodb_arn" {
+  value = aws_dynamodb_table.this.arn
 }
 
 output "lambda_policy_arn" {

@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "this" {
-  name           = "${var.name}-${var.env}-processed-records"
+  name           = "${var.name}-${var.env}-records"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20

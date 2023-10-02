@@ -7,6 +7,6 @@ variable "name" {
 }
 
 variable "repo" {
-  # default     = "https://bitbucket.org/cellforce/integration-erp-mes-infra/src"
-  # description = "The url of the repository in bitbucket"
+  default     = "https://github.com/andrefjpinto/terraform"
+  description = "The url of the repository in github"
 }
