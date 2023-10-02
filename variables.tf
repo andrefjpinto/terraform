@@ -1,10 +1,10 @@
 variable "env" {
-  default = "dev"
+  default     = "dev"
   description = "The environment where the application will be deployed"
 }
 
 variable "name" {
-  default = "iem"
+  default     = "iem"
   description = "The name of the application"
 }
 

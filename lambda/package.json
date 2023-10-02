@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.421.0",
+    "@aws-sdk/client-secrets-manager": "^3.421.0",
     "@aws-sdk/client-sns": "^3.421.0"
   }
 }
