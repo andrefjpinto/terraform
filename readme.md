@@ -38,16 +38,16 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_env"></a> [env](#input\_env) | n/a | `string` | `"dev"` | no |
-| <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"iem"` | no |
+| <a name="input_env"></a> [env](#input\_env) | The environment where the application will be deployed | `string` | `"dev"` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name of the application | `string` | `"iem"` | no |
 | <a name="input_repo"></a> [repo](#input\_repo) | The url of the repository in github | `string` | `"https://github.com/andrefjpinto/terraform"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dynamodb_arn"></a> [dynamodb\_arn](#output\_dynamodb\_arn) | n/a |
-| <a name="output_lambda_arn"></a> [lambda\_arn](#output\_lambda\_arn) | n/a |
-| <a name="output_lambda_policy_arn"></a> [lambda\_policy\_arn](#output\_lambda\_policy\_arn) | n/a |
-| <a name="output_lambda_role_arn"></a> [lambda\_role\_arn](#output\_lambda\_role\_arn) | n/a |
+| <a name="output_dynamodb_arn"></a> [dynamodb\_arn](#output\_dynamodb\_arn) | ARN of the DynamoDB table |
+| <a name="output_lambda_arn"></a> [lambda\_arn](#output\_lambda\_arn) | ARN of the Lambda function |
+| <a name="output_sns_arn"></a> [sns\_arn](#output\_sns\_arn) | ARN of the SNS topic |
+| <a name="output_sqs_arn"></a> [sqs\_arn](#output\_sqs\_arn) | ARN of the SQS queue |
 <!-- END_TF_DOCS -->
